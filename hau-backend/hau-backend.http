@@ -1,0 +1,6 @@
+@hau_backend_HostAddress = http://localhost:5202
+
+GET {{hau_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
