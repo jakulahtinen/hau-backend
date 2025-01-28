@@ -12,25 +12,40 @@ namespace hau_backend.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
+        public AuthController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            // Simppeli käyttäjätarkistus (korvaa oikealla tietokantatarkistuksella)
-            if (request.Username == "admin" && request.Password == "password123")
+
+            var adminUsername = _configuration["AdminCredentials:Username"];
+            var adminPassword = _configuration["AdminCredentials:Password"];
+
+            if (request.Username == adminUsername && request.Password == adminPassword)
             {
-                // Luo JWT-token
+                var jwtSettings = _configuration.GetSection("JwtSettings");
+                var issuer = jwtSettings["Issuer"];
+                var audience = jwtSettings["Audience"];
+                var secret = jwtSettings["Secret"];
+
+                // JWT-token
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes("your_secret_key"); // Varmista, että tämä on vahva avain
+                var key = Encoding.UTF8.GetBytes(secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                    new Claim(ClaimTypes.Name, request.Username),
-                    new Claim(ClaimTypes.Role, "Admin") // Käyttäjärooli
-                }),
+                        new Claim(ClaimTypes.Name, request.Username),
+                        new Claim(ClaimTypes.Role, "Admin") 
+                    }),
                     Expires = DateTime.UtcNow.AddHours(1),
-                    Issuer = "yourapp",
-                    Audience = "yourapp",
+                    Issuer = issuer, // 
+                    Audience = audience,
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
 

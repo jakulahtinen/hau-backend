@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>hau_backend</RootNamespace>
+    <UserSecretsId>dc2af457-2290-4055-baa2-447bc946651a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

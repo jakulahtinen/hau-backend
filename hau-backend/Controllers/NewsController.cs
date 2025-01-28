@@ -25,7 +25,7 @@ namespace hau_backend.Controllers
             return await _context.News.ToListAsync();
         }
 
-        //[Authorize(Roles = "Admin")] TÄMÄ JWT
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateNews([FromBody] News news)
         {
@@ -34,7 +34,6 @@ namespace hau_backend.Controllers
                 return BadRequest("Kaikki kentät ovat pakollisia.");
             }
 
-            // Jos Base64-data on määritelty, muunna se byte[]-muotoon
             if (!string.IsNullOrEmpty(news.ImageDataBase64))
             {
                 try
@@ -47,7 +46,6 @@ namespace hau_backend.Controllers
                 }
             }
 
-            // Lisää uutinen tietokantaan
             _context.News.Add(news);
             await _context.SaveChangesAsync();
 
@@ -55,7 +53,7 @@ namespace hau_backend.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Admin")] TÄMÄ JWT
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateNews(int id, News updatedNews)
         {
             var news = await _context.News.FindAsync(id);
@@ -69,7 +67,7 @@ namespace hau_backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")] TÄMÄ JWT
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteNews(int id)
         {
             var news = await _context.News.FindAsync(id);
