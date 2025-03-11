@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Options;
+using hau_backend.Models;
 
 namespace hau_backend.Controllers
 {
@@ -13,10 +15,12 @@ namespace hau_backend.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly JwtSettings _jwtSettings;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IConfiguration configuration, IOptions<JwtSettings> jwtSettings)
         {
             _configuration = configuration;
+            _jwtSettings = jwtSettings.Value;
         }
 
         [HttpPost("login")]
@@ -28,14 +32,9 @@ namespace hau_backend.Controllers
 
             if (request.Username == adminUsername && request.Password == adminPassword)
             {
-                var jwtSettings = _configuration.GetSection("JwtSettings");
-                var issuer = jwtSettings["Issuer"];
-                var audience = jwtSettings["Audience"];
-                var secret = jwtSettings["Secret"];
-
                 // JWT-token
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes(secret);
+                var key = Encoding.UTF8.GetBytes(_jwtSettings.Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
@@ -44,8 +43,8 @@ namespace hau_backend.Controllers
                         new Claim(ClaimTypes.Role, "Admin") 
                     }),
                     Expires = DateTime.UtcNow.AddHours(1),
-                    Issuer = issuer, // 
-                    Audience = audience,
+                    Issuer = _jwtSettings.Issuer, // 
+                    Audience = _jwtSettings.Audience,
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
 
