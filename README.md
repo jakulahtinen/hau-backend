@@ -28,6 +28,6 @@ This repository contains the backend for the new website of a Hirvensalmen Autou
 
 - **Microsoft Azure**
 
-![image](https://github.com/user-attachments/assets/276e1e1c-3d93-45d9-bf4f-45eb48240ffe)
+![image](https://github.com/user-attachments/assets/7d71ac63-1928-4914-ab7d-dd4a24df8db0)
 
 Built with ❤️ by [Jaku] I am continuously learning new technologies and improving my skills while building this backend!
