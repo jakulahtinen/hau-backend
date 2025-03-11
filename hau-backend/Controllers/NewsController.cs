@@ -25,8 +25,19 @@ namespace hau_backend.Controllers
             return await _context.News.ToListAsync();
         }
 
-        [Authorize(Roles = "Admin")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<News>> GetNewsById(int id)
+        {
+            var newsItem = await _context.News.FindAsync(id);
+            if (newsItem == null)
+            {
+                return NotFound();
+            }
+            return Ok(newsItem);
+        }
+
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateNews([FromBody] News news)
         {
             if (news == null || string.IsNullOrWhiteSpace(news.Title) || string.IsNullOrWhiteSpace(news.Content))

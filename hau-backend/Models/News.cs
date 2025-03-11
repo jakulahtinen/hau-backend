@@ -4,14 +4,14 @@ namespace hau_backend.Models
 {
     public class News
     {
-        public int Id { get; set; } // Pääavain
+        public int Id { get; set; } // Main key
         public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         public DateTime PublishedAt { get; set; } = DateTime.UtcNow;
 
         public byte[]? ImageData { get; set; }
 
-        [NotMapped] //EI tallenneta tietokantaan
+        [NotMapped] //NOT saved to database
         public string? ImageDataBase64 { get; set; }
     }
 }
