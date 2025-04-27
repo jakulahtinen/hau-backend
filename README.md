@@ -21,7 +21,7 @@ This repository contains the backend for the new website of a Hirvensalmen Autou
 
 - **Framework**: .NET 7 (or version you're using)
 - **Authentication**: JWT for login logic and token generation.
-- **Database**: SQL Server with EF Core ORM.
+- **Database**: PostgreSQL with EF Core ORM.
 - **Environment**: Visual Studio for development.
 
 ## Publishing
