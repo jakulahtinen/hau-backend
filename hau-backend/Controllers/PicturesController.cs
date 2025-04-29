@@ -1,5 +1,6 @@
 ﻿using hau_backend.Data;
 using hau_backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,7 @@ namespace hau_backend.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPicture([FromBody] Picture picture)
         {
             if (string.IsNullOrEmpty(picture.ImageDataBase64))
@@ -52,6 +54,7 @@ namespace hau_backend.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePicture(int id)
         {
             var picture = await _context.Pictures.FindAsync(id);
@@ -62,6 +65,24 @@ namespace hau_backend.Controllers
             _context.Pictures.Remove(picture);
             await _context.SaveChangesAsync();
 
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateCaption(int id, [FromBody] Picture picture)
+        {
+            if (id != picture.Id)
+            {
+                return BadRequest();
+            }
+            var pictureToUpdate = await _context.Pictures.FindAsync(id);
+            if (pictureToUpdate == null)
+            {
+                return NotFound();
+            }
+            pictureToUpdate.Title = picture.Title;
+            await _context.SaveChangesAsync();
             return NoContent();
         }
     }
