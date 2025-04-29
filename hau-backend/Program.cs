@@ -56,6 +56,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+//THIS IS A TEST COMMIT 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
