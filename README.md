@@ -1,4 +1,4 @@
-[![.NET Backend CI](https://github.com/jakulahtinen/hau-backend/actions/workflows/dotnet.yml/badge.svg)](https://github.com/jakulahtinen/hau-backend/actions/workflows/dotnet.yml)
+[![HAU-Backend CI-workflow](https://github.com/jakulahtinen/hau-backend/actions/workflows/dotnet.yml/badge.svg)](https://github.com/jakulahtinen/hau-backend/actions/workflows/dotnet.yml)
 
 # Motorsport Club Backend
 
