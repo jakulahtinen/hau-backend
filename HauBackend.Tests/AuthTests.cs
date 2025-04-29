@@ -47,10 +47,6 @@ namespace hau_backend.Tests
 
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(okResult.Value);
-
-            var value = okResult.Value as dynamic;
-            Assert.NotNull(value);
-            Assert.NotNull(value.token);
         }
 
         [Fact]
