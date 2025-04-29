@@ -1,3 +1,5 @@
+[![HAU-Backend CI-workflow](https://github.com/jakulahtinen/hau-backend/actions/workflows/dotnet.yml/badge.svg)](https://github.com/jakulahtinen/hau-backend/actions/workflows/dotnet.yml)
+
 # Motorsport Club Backend
 
 This repository contains the backend for the new website of a Hirvensalmen Autourheilijat motorsport club. The backend is built using modern technologies to provide secure, efficient, and scalable services for managing news content and handling user authentication.
