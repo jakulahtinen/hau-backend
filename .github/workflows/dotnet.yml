@@ -1,25 +1,29 @@
-name: .NET HAU-Backend CI
+name: .NET Backend CI
 
 on:
   push:
-    branches: [ "Development, master " ]
+    branches: [ Development, master ]
   pull_request:
-    branches: [ "Development, master " ]
+    branches: [ Development, master ]
 
 jobs:
-  build:
-
-    runs-on: windows-latest
+  build-and-test:
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: '8.0.x'
+
     - name: Restore dependencies
       run: dotnet restore
+
     - name: Build
-      run: dotnet build --no-restore
-    - name: Run Tests
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Test
       run: dotnet test --no-build --verbosity normal
