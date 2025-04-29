@@ -18,10 +18,17 @@ builder.Configuration.AddUserSecrets<Program>();
 Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+        if (jwtSettings == null)
+        {
+            throw new InvalidOperationException("JwtSettings configuration is missing.");
+        }
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -34,12 +41,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// CORS policy to allow requests from the frontend
 builder.Services.AddCors(options =>
+
 {
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000") // Korvaa frontendin URL
+            policy.WithOrigins("http://localhost:3000") // Replace this later
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -24,14 +22,19 @@ namespace hau_backend.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public IActionResult Login([FromBody] Models.LoginRequest request)
         {
-
             var adminUsername = _configuration["AdminCredentials:Username"];
             var adminPassword = _configuration["AdminCredentials:Password"];
 
             if (request.Username == adminUsername && request.Password == adminPassword)
             {
+                // Ensuring Username is not null before creating the claim
+                if (string.IsNullOrEmpty(request.Username))
+                {
+                    return BadRequest("Username cannot be null or empty.");
+                }
+
                 // JWT-token
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.UTF8.GetBytes(_jwtSettings.Secret);
@@ -40,10 +43,10 @@ namespace hau_backend.Controllers
                     Subject = new ClaimsIdentity(new[]
                     {
                         new Claim(ClaimTypes.Name, request.Username),
-                        new Claim(ClaimTypes.Role, "Admin") 
+                        new Claim(ClaimTypes.Role, "Admin")
                     }),
                     Expires = DateTime.UtcNow.AddHours(1),
-                    Issuer = _jwtSettings.Issuer, // 
+                    Issuer = _jwtSettings.Issuer,
                     Audience = _jwtSettings.Audience,
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
@@ -55,10 +58,4 @@ namespace hau_backend.Controllers
             return Unauthorized("Käyttäjänimi tai salasana on virheellinen");
         }
     }
-}
-
-public class LoginRequest
-{
-    public string? Username { get; set; }
-    public string? Password { get; set; }
 }
