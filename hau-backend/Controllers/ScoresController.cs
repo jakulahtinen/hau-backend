@@ -20,6 +20,7 @@ namespace hau_backend.Controllers
 
         //GET
         [HttpGet]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<IEnumerable<Scores>>> GetScores()
         {
             return await _context.Scores.ToListAsync();

@@ -19,6 +19,7 @@ namespace hau_backend.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<IEnumerable<Picture>>> GetPictures()
         {
             return await _context.Pictures

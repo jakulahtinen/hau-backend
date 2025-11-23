@@ -18,6 +18,7 @@ namespace hau_backend.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<IEnumerable<News>>> GetNews()
         {
             return await _context.News.ToListAsync();
