@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using hau_backend.Data;
 using hau_backend.Models;
 using Microsoft.AspNetCore.Authorization;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
 
 namespace hau_backend.Controllers
 {
@@ -11,10 +13,12 @@ namespace hau_backend.Controllers
     public class NewsController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public NewsController(AppDbContext context)
+        public NewsController(AppDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -48,11 +52,33 @@ namespace hau_backend.Controllers
             {
                 try
                 {
-                    news.ImageData = Convert.FromBase64String(news.ImageDataBase64);
+                    // 1. Convert Base64 to Stream
+                    var imageBytes = Convert.FromBase64String(news.ImageDataBase64);
+                    using var stream = new MemoryStream(imageBytes);
+
+                    // 2. Connect to Azure
+                    string connectionString = _configuration.GetConnectionString("AzureBlobStorage")
+                        ?? throw new InvalidOperationException("AzureBlobStorage connection string is missing or null.");
+
+                    var blobServiceClient = new BlobServiceClient(connectionString);
+                    var containerClient = blobServiceClient.GetBlobContainerClient("hau-images");
+
+                    // Ensure container exists
+                    await containerClient.CreateIfNotExistsAsync(PublicAccessType.Blob);
+
+                    // 3. Create unique filename
+                    string fileName = $"news-{Guid.NewGuid()}.jpg";
+                    var blobClient = containerClient.GetBlobClient(fileName);
+
+                    // 4. Upload
+                    await blobClient.UploadAsync(stream, true);
+
+                    // 5. Save URL to Model
+                    news.ImageUrl = blobClient.Uri.ToString();
                 }
-                catch (FormatException)
+                catch (Exception ex)
                 {
-                    return BadRequest("Virheellinen kuvan Base64-data.");
+                    return BadRequest($"Kuvan lataus epäonnistui: {ex.Message}");
                 }
             }
 
@@ -87,7 +113,6 @@ namespace hau_backend.Controllers
 
             _context.News.Remove(news);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
     }
