@@ -5,8 +5,6 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hau-backend", "hau-backend\hau-backend.csproj", "{45E4B87D-B64A-469C-BAC8-B8D093029C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HauBackend.Tests", "HauBackend.Tests\HauBackend.Tests.csproj", "{68AA5DDB-4B83-4740-86E7-1946B9493862}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,18 +27,6 @@ Global
 		{45E4B87D-B64A-469C-BAC8-B8D093029C0A}.Release|x64.Build.0 = Release|Any CPU
 		{45E4B87D-B64A-469C-BAC8-B8D093029C0A}.Release|x86.ActiveCfg = Release|Any CPU
 		{45E4B87D-B64A-469C-BAC8-B8D093029C0A}.Release|x86.Build.0 = Release|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Debug|x64.Build.0 = Debug|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Debug|x86.Build.0 = Debug|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Release|x64.ActiveCfg = Release|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Release|x64.Build.0 = Release|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Release|x86.ActiveCfg = Release|Any CPU
-		{68AA5DDB-4B83-4740-86E7-1946B9493862}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
