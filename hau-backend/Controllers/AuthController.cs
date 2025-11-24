@@ -29,7 +29,6 @@ namespace hau_backend.Controllers
 
             if (request.Username == adminUsername && request.Password == adminPassword)
             {
-                // Ensuring Username is not null before creating the claim
                 if (string.IsNullOrEmpty(request.Username))
                 {
                     return BadRequest("Username cannot be null or empty.");

@@ -48,7 +48,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000") // Replace this later
+            policy.WithOrigins("http://localhost:3000", "https://proud-tree-0e3760903.3.azurestaticapps.net") // Replace this later
                     .AllowAnyHeader()
                     .AllowAnyMethod();
         });
