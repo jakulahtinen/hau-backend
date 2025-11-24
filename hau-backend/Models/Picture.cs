@@ -6,10 +6,13 @@ namespace hau_backend.Models
     {
         public int Id { get; set; } //Main key
         public string Title { get; set; } = string.Empty; // Picture description
-        public DateTime UploadedAt { get; set; } = DateTime.UtcNow; 
-        public byte[]? ImageData { get; set; }
+        public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 
-        [NotMapped] //NOT saved to database
+       // Stores the link to Azure
+        public string? ImageUrl { get; set; }
+
+        // KEEP: To receive input from React
+        [NotMapped]
         public string? ImageDataBase64 { get; set; }
     }
 }

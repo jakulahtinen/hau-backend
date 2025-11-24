@@ -9,9 +9,10 @@ namespace hau_backend.Models
         public string Content { get; set; } = string.Empty;
         public DateTime PublishedAt { get; set; } = DateTime.UtcNow;
 
-        public byte[]? ImageData { get; set; }
+        // Stores the link to Azure 
+        public string? ImageUrl { get; set; }
 
-        [NotMapped] //NOT saved to database
+        [NotMapped]
         public string? ImageDataBase64 { get; set; }
     }
 }
