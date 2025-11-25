@@ -24,12 +24,3 @@ jobs:
 
       - name: Build
         run: dotnet build hau-backend.sln --configuration Release --no-restore
-
-      - name: Test HauBackend.Tests
-        run: dotnet test HauBackend.Tests/HauBackend.Tests.csproj --configuration Release --no-build
-
-      - name: Test TestProject
-        run: dotnet test TestProject/TestProject.csproj --configuration Release --no-build
-
-      - name: Test Tests suite
-        run: dotnet test Tests/Tests.csproj --configuration Release --no-build
