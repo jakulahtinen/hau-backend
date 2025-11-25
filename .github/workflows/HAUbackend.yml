@@ -3,6 +3,10 @@ on:
   push:
     branches:
     - master
+permissions:
+  id-token: write
+  contents: read
+
 env:
   AZURE_WEBAPP_NAME: HAUbackend
   AZURE_WEBAPP_PACKAGE_PATH: hau-backend\publish
