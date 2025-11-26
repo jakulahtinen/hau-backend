@@ -8,7 +8,7 @@ using hau_backend.Models;
 
 namespace hau_backend.Controllers
 {
-    [Route("api/auth[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
