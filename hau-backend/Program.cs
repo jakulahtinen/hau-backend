@@ -48,21 +48,17 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000") // Replace this later
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+            policy.WithOrigins("https://proud-tree-0e3760903.3.azurestaticapps.net") 
+            .AllowAnyMethod();
         });
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();

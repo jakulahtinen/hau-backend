@@ -10,14 +10,14 @@ This repository contains the backend for the new website of a Hirvensalmen Autou
   - Implements JWT (JSON Web Token) service to authenticate users.
   - Generates secure tokens for frontend communication.
 
-- **News Management**:
-  - Stores and retrieves news articles in a SQL database.
+- **News & Photos Management**:
+  - Stores and retrieves news articles in a PostgreSQL database.
   - Enables creating, editing, and deleting news articles via admin functionality.
 
 - **Technologies Used**:
   - **C#**, **.NET**, **ASP.NET Core** for backend development.
   - **EF Core ORM** for database interaction.
-  - **SQL** for data persistence.
+  - **PostgreSQL** for data persistence.
 
 ## Tech Stack
 
@@ -30,6 +30,9 @@ This repository contains the backend for the new website of a Hirvensalmen Autou
 
 - **Microsoft Azure**
 
-![image](https://github.com/user-attachments/assets/7d71ac63-1928-4914-ab7d-dd4a24df8db0)
+# Backend endpoints
+![image](https://github.com/user-attachments/assets/92a1fd87-db90-4c9b-8645-040275ba3508)
+
+
 
 Built with ❤️ by [Jaku] I am continuously learning new technologies and improving my skills while building this backend!

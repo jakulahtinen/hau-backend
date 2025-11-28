@@ -8,7 +8,7 @@ using hau_backend.Models;
 
 namespace hau_backend.Controllers
 {
-    [Route("api/auth[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -29,7 +29,6 @@ namespace hau_backend.Controllers
 
             if (request.Username == adminUsername && request.Password == adminPassword)
             {
-                // Ensuring Username is not null before creating the claim
                 if (string.IsNullOrEmpty(request.Username))
                 {
                     return BadRequest("Username cannot be null or empty.");
