@@ -8,7 +8,7 @@ using hau_backend.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -48,8 +48,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("https://proud-tree-0e3760903.3.azurestaticapps.net") 
-            .AllowAnyMethod();
+            policy.WithOrigins("https://proud-tree-0e3760903.3.azurestaticapps.net")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
         });
 });
 
@@ -60,8 +62,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 
-app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

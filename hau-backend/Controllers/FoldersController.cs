@@ -20,6 +20,7 @@ namespace hau_backend.Controllers
         // GET: api/Folders
         // Returns folders AND the URL of the latest image in that folder (for the thumbnail)
         [HttpGet]
+        [Route("")] // Explicit route is helpful, assumes PicturesController
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<IEnumerable<object>>> GetFolders()
         {
@@ -29,9 +30,12 @@ namespace hau_backend.Controllers
                     f.Id,
                     f.Name,
                     f.CreatedAt,
-                    // Get the image URL of the most recent picture in this folder to use as a cover
+                    // Check if Pictures is null or empty before accessing it
                     CoverImageUrl = f.Pictures != null && f.Pictures.Any()
-                        ? f.Pictures.OrderByDescending(p => p.UploadedAt).Select(p => p.ImageUrl).FirstOrDefault()
+                        ? f.Pictures
+                            .OrderByDescending(p => p.UploadedAt)
+                            .Select(p => p.ImageUrl)
+                            .FirstOrDefault()
                         : null
                 })
                 .OrderByDescending(f => f.CreatedAt)

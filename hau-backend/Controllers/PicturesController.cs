@@ -23,10 +23,12 @@ namespace hau_backend.Controllers
 
         [HttpGet]
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
-        public async Task<ActionResult<IEnumerable<Picture>>> GetPictures()
+        public async Task<ActionResult<IEnumerable<Picture>>> GetPictures(int page = 1, int pageSize = 20)
         {
             return await _context.Pictures
                 .OrderByDescending(p => p.UploadedAt)
+                .Skip((page - 1) * pageSize) 
+                .Take(pageSize)            
                 .ToListAsync();
         }
 
