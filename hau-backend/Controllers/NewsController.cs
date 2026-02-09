@@ -43,7 +43,7 @@ namespace hau_backend.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateNews([FromBody] News news)
         {
-            if (news == null || string.IsNullOrWhiteSpace(news.Title) || string.IsNullOrWhiteSpace(news.Content))
+            if (news == null || string.IsNullOrWhiteSpace(news.Title))
             {
                 return BadRequest("Kaikki kentät ovat pakollisia.");
             }

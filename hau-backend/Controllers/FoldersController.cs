@@ -75,5 +75,18 @@ namespace hau_backend.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateFolder(int id, Folder updatedFolder)
+        {
+            var folder = await _context.Folders.FindAsync(id);
+            if (folder == null) return NotFound();
+
+            folder.Name = updatedFolder.Name;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
